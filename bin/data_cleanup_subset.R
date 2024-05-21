@@ -1,19 +1,56 @@
-###load libraries
+#!/usr/bin/env Rscript
+
+#load libraries
 library (devtools)
 library (tidyverse)
 library(rio)
+#install.packages("optparse")
+library(optparse)
+library(lubridate)
+
+option_list <- list(
+  # Input file
+  make_option(
+    c("-t", "--tsv_file"),
+    type="character",
+    default=NULL,
+    help="A tsv file with three columns",
+    metavar="TSV_FILE"),
+
+ make_option(
+    c("-f", "--fasta"),
+    type="character",
+    default=NULL,
+    help="A fasta file from gisaid",
+    metavar="fasta"),
+
+ 
+  #Output file
+  make_option(
+    c("-o", "--output_file"),
+    type="character",
+    default="sample.tsv",
+    help="output file name [default= %default]",
+    metavar="TSV_FILE")
+)
+
+# Create an opt object
+opt_parser = OptionParser(option_list=option_list)
+opt = parse_args(opt_parser)
 
 #set working directory
-setwd("~/Downloads")
+#setwd("~/Downloads")
 
 #source for script
 source_url("https://raw.githubusercontent.com/lrjoshi/FastaTabular/master/fasta_and_tabular.R")
 
 #covert fasta to csv
-FastaToTabular("gisaid_arbo_2024_05_20_10.fasta")
+FastaToTabular(opt$fasta)
+arbo_data <- import(opt$tsv_file)
+
 
 #import csv file
-arbo_fasta <- import("~/Downloads/dna_table.csv", header = T)
+arbo_fasta <- import("dna_table.csv", header = T)
 
 #manipulate fasta header to get strain id 
 arbo_fasta2 <- arbo_fasta %>% 
@@ -21,16 +58,15 @@ arbo_fasta2 <- arbo_fasta %>%
   dplyr::select(accession, sequence)
 
 #write 2 csv
-write.csv(arbo_fasta2, "~/Downloads/dna_table.csv", row.names = FALSE)
+write.csv(arbo_fasta2, "dna_table.csv", row.names = FALSE)
 
-#convert
+#convert csv to fasta
 TabularToFasta("dna_table.csv")
 
 #######import metadata
-arbo_data <- import("~/Downloads/gisaid_arbo_2024_05_20_10.tsv")
 
-names(arbo_data)
-#manipulate data 
+#names(arbo_data)
+#manipulate data for subsampling
 arbo_data2 <- arbo_data %>% 
   rename("seq_length" = `Sequence Length`,
          "strain" = `Virus name`,
@@ -44,7 +80,7 @@ arbo_data2 <- arbo_data %>%
   
 
 #check data structure
-str(arbo_data2)
+#str(arbo_data2)
 
 #subsample data
 subsampling_arbodata <-arbo_data2%>%
@@ -58,4 +94,4 @@ subsampling_arbodata <-arbo_data2%>%
   dplyr::select(accession)
 
 #write table with 
-write_tsv(subsampling_arbodata, "~/Downloads/subsampled_arbodata.tsv")
+write_tsv(subsampling_arbodata, opt$output_file)
