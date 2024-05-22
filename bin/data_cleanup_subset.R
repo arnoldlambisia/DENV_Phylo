@@ -93,5 +93,7 @@ subsampling_arbodata <-arbo_data2%>%
   dplyr::mutate(seq_id = paste(accession, country, Genotype, date_collect, sep = "|")) %>% 
   dplyr::select(accession)
 
+  #subset data for treetime
+
 #write table with 
 write_tsv(subsampling_arbodata, opt$output_file)

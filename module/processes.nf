@@ -31,10 +31,26 @@ process ALIGN {
     path denv_ref //denv1 reference genome
 
     output:
-    path "denv1_aln.fasta"
+    path "denv1_aln.fasta" //no need to emit because it's a single output
 
     shell:
     """
     nextalign run -r $denv_ref --include-reference -o denv1_aln.fasta $subsampled_fasta
+    """
+}
+
+process IQTREE {
+    
+    publishDir "${params.outDir}", mode: "copy"
+
+    input:
+    path aligned_fasta //aligned file from ALIGN process
+
+    output:
+    path "*.treefile"
+
+    shell:
+    """
+    iqtree2 -s $aligned_fasta -m TEST -bb 1000 -T 4
     """
 }

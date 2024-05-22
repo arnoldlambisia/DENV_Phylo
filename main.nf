@@ -4,7 +4,8 @@ nextflow.enable.dsl=2
 
 include{
     SUBSAMPLE;
-    ALIGN
+    ALIGN;
+    IQTREE
 } from "./module/processes.nf"
 
 channel.fromPath("${params.gisaid_fasta}").set{gisaid_fasta_ch}
@@ -19,5 +20,8 @@ SUBSAMPLE(
 ALIGN(
     SUBSAMPLE.out.subsampled, //subsampled from gisaid_fasta
     align_ref_ch
-)   
+)
+IQTREE(
+    ALIGN.out
+)
 }
