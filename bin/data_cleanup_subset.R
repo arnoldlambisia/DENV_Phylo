@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+set.seed(1234)
+
 #load libraries
 library (devtools)
 library (tidyverse)
@@ -23,7 +25,6 @@ option_list <- list(
     default=NULL,
     help="A fasta file from gisaid",
     metavar="fasta"),
-
  
   #Output file
   make_option(
@@ -31,7 +32,14 @@ option_list <- list(
     type="character",
     default="sample.tsv",
     help="output file name [default= %default]",
-    metavar="TSV_FILE")
+    metavar="TSV_FILE"),
+ 
+ make_option(
+   c("-m", "--treetimemeta_file"),
+   type="character",
+   default="sample.tsv",
+   help="output file name [default= %default]",
+   metavar="TSV_FILE")
 )
 
 # Create an opt object
@@ -83,17 +91,24 @@ arbo_data2 <- arbo_data %>%
 #str(arbo_data2)
 
 #subsample data
-subsampling_arbodata <-arbo_data2%>%
+arbo_data3 <-arbo_data2%>%
   dplyr::filter(seq_length >= 10000 & !is.na(Genotype) & !is.na(date_collect) & Host == "Human") %>% 
   group_by(country, yearcollection, Genotype)%>%
   sample_n(30, replace =T)%>%
   distinct(strain,.keep_all=TRUE)%>%
   ungroup()%>%
   dplyr::select(accession, date_collect, Genotype, country) %>% 
-  dplyr::mutate(seq_id = paste(accession, country, Genotype, date_collect, sep = "|")) %>% 
+  dplyr::mutate(seq_id = paste(accession, country, Genotype, date_collect, sep = "|"))
+
+ #subset accession number
+ subsampling_arbodata <- arbo_data3 %>% 
   dplyr::select(accession)
 
-  #subset data for treetime
+#subset data for treetime
+treetime_metadata <- arbo_data3 %>% 
+  dplyr::mutate(dates = decimal_date(date_collect)) %>% 
+  dplyr::select(accession, dates, country, Genotype)
 
 #write table with 
 write_tsv(subsampling_arbodata, opt$output_file)
+write_tsv(treetime_metadata, opt$treetimemeta_file)

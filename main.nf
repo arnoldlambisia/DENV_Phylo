@@ -5,7 +5,8 @@ nextflow.enable.dsl=2
 include{
     SUBSAMPLE;
     ALIGN;
-    IQTREE
+    IQTREE;
+    TREETIME
 } from "./module/processes.nf"
 
 channel.fromPath("${params.gisaid_fasta}").set{gisaid_fasta_ch}
@@ -23,5 +24,10 @@ ALIGN(
 )
 IQTREE(
     ALIGN.out
+)
+TREETIME(
+ALIGN.out,
+IQTREE.out,
+SUBSAMPLE.out.treetime_data
 )
 }
