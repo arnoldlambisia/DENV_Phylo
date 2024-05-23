@@ -52,7 +52,7 @@ process IQTREE {
 
     shell:
     """
-    iqtree2 -s $aligned_fasta -m TEST -bb 1000 -T 7
+    iqtree2 -s $aligned_fasta -m TEST -bb 1000 -T 4
     """
 }
 

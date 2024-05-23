@@ -3,7 +3,7 @@
 set.seed(1234)
 
 # Check whether pacman is available, if not install
-if (!require("pacman")) install.packages("pacman")
+#if (!require("pacman")) install.packages("pacman")
 
 # Install or load the required packages
 pacman::p_load(
