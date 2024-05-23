@@ -85,7 +85,7 @@ arbo_data2 <- arbo_data %>%
          "AA_mutation" = `AA Substitutions`,
          "date_collect" = `Collection date`,
          "accession" = `Accession ID`) %>% 
-  dplyr::mutate(date_collect = as.Date(date_collect),
+  dplyr::mutate(date_collect = as.Date(date_collect, tryFormats = c("%d/%m/%Y")), #check date format
                 yearcollection=as.Date(cut(date_collect, breaks="year"))) %>% 
   separate(Location, into=c("continent", "country", "region", "subregion1", "subregion2", "subregion3"),
            sep="\\/", remove=FALSE, extra="warn", fill="right")
