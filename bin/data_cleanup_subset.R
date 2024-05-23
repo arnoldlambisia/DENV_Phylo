@@ -2,13 +2,17 @@
 
 set.seed(1234)
 
-#load libraries
-library (devtools)
-library (tidyverse)
-library(rio)
-#install.packages("optparse")
-library(optparse)
-library(lubridate)
+# Check whether pacman is available, if not install
+if (!require("pacman")) install.packages("pacman")
+
+# Install or load the required packages
+pacman::p_load(
+  devtools,
+  tidyverse,
+  rio,
+  optparse,
+  lubridate
+)
 
 option_list <- list(
   # Input file
