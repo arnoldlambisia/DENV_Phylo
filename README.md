@@ -14,7 +14,7 @@ git clone https://github.com/arnoldlambisia/DENV_Phylo.git
 ```
 
 ##Pipeline
-![DENV_Phylo Workflow]()
+![DENV_Phylo Workflow](Denv_workflow.png)
 
 
 The pipeline has four key processes:
