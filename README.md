@@ -6,7 +6,7 @@ DENV_Phylo is a bioinformtics pipeline that runs using nextfow. The pipeline is 
 
 ##Pipeline
 
-The pipeline has four key stages:
+The pipeline has four key processes:
 
 1. Data cleanup using ([r-base](https://www.r-project.org/))
 
@@ -30,7 +30,6 @@ The pipeline has four key stages:
 ```bash
 nextflow run main.nf --gisaid_fasta <insert fasta> --gisaid_metadata <insert metadata>
 ```
-
 
 **Contributed by**:
 ```
