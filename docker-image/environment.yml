@@ -1,0 +1,26 @@
+name: DENV_PHYLO
+channels:
+  - broad-viral
+  - conda-forge
+  - bioconda
+  - defaults
+  - ursky
+dependencies:
+  - iqtree
+  - seqtk
+  - nextalign
+  - treetime
+  - r
+  - r-devtools
+  - r-tidyverse
+  - r-rio
+  - r-optparse
+  - r-lubridate
+  - r-hexView 
+  - r-fst 
+  - r-pzfx 
+  - r-rmatio 
+  - r-readODS 
+  - r-qs
+  - nextflow
+  

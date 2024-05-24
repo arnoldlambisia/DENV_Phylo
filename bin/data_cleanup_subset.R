@@ -5,14 +5,12 @@ set.seed(1234)
 # Check whether pacman is available, if not install
 #if (!require("pacman")) install.packages("pacman")
 
-# Install or load the required packages
-pacman::p_load(
-  devtools,
-  tidyverse,
-  rio,
-  optparse,
-  lubridate
-)
+#load the required packages
+library(devtools)
+library(tidyverse)
+library(rio)
+library(optparse)
+library(lubridate)
 
 option_list <- list(
   # Input file

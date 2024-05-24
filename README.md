@@ -4,13 +4,21 @@
 
 DENV_Phylo is a bioinformtics pipeline that runs using nextfow. The pipeline is used to perform phylogenetic analysis of Dengue data from [GISAID](https://gisaid.org/). 
 
+##Installation
+Install docker as decribed [here](https://www.docker.com/)
+
+clone the github repo:
+```bash
+git clone https://github.com/arnoldlambisia/DENV_Phylo.git
+```
+
 ##Pipeline
 
 The pipeline has four key processes:
 
 1. Data cleanup using ([r-base](https://www.r-project.org/))
 
->This step uses an [R script](bin/data_cleanup_subset.R) that takes inputs of a [fasta](data/gisaid_test.fasta) and a [metadata](data/gisaid_test.tsv) file downloaded from gisaid. The output is a renamed fasta file, subsampled accession IDs and fasta file and a metadata file for use with treetime.
+>This step uses an [R script](bin/data_cleanup_subset.R) that takes inputs of a [fasta](data/gisaid_test.fasta) and a [metadata](data/gisaid_test.tsv) file downloaded from gisaid. The outputs are a renamed fasta file, subsampled accession IDs and fasta file and a metadata file for use with treetime.
 
 2. Alignment of subsampled fasta sequences using [nextalign](https://github.com/neherlab/nextalign)
 
@@ -27,15 +35,18 @@ The pipeline has four key processes:
 
 
 ###Usage
+
+The pipeline can be run suing the following command:
+
 ```bash
-nextflow run main.nf --gisaid_fasta <insert fasta> --gisaid_metadata <insert metadata>
+docker run --rm -it -v <change directory to cloned repo>:$(pwd) alambisia/phylogen:1.0 nextflow run $(pwd)/main.nf --gisaid_fasta <insert fasta> --gisaid_metadata <insert metadata>
 ```
 
 **Contributed by**:
 ```
-+Arnold Lambisia
-+Sam Odoyo
-+Chimwemwe Mhango
-+Evalyne Nyambura
-+Daniel Omoding
+1.Arnold Lambisia
+2.Sam Odoyo
+3.Chimwemwe Mhango
+4.Evalyne Nyambura
+5.Daniel Omoding
 ```
