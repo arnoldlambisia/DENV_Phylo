@@ -50,9 +50,6 @@ option_list <- list(
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 
-#set working directory
-#setwd("~/Downloads")
-
 #source for script
 source_url("https://raw.githubusercontent.com/lrjoshi/FastaTabular/master/fasta_and_tabular.R")
 
