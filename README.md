@@ -28,7 +28,10 @@ The pipeline has four key processes:
 
 ###Usage
 ```bash
-docker run --rm -it -v <change directory to cloned repo>:$(pwd) alambisia/phylogen:1.0 nextflow run $(pwd)/main.nf --gisaid_fasta <insert fasta> --gisaid_metadata <insert metadata>
+docker run --rm -it -v \
+<change directory to cloned repo>:$(pwd) alambisia/phylogen:1.0 nextflow run $(pwd)/main.nf \
+--gisaid_fasta <insert fasta> \
+--gisaid_metadata <insert metadata>
 ```
 
 **Contributed by**:
