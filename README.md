@@ -14,9 +14,6 @@ git clone https://github.com/arnoldlambisia/DENV_Phylo.git
 ```
 
 ##Pipeline
-![DENV_Phylo Workflow](Denv_workflow.png)
-
-
 The pipeline has four key processes:
 
 1. Data cleanup using ([r-base](https://www.r-project.org/))
@@ -36,6 +33,7 @@ The pipeline has four key processes:
 
 4. Creation of a time resolved tree using [treetime](https://github.com/neherlab/treetime)
 
+![DENV_Phylo Workflow](Denv_workflow.png)
 
 ###Usage
 ```bash
