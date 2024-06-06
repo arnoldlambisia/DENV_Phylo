@@ -1,8 +1,13 @@
-######################### Tabular format to Fasta format###############################
+######################### Visualization script###############################
 
 #this is a script to visualize the dengue time-reolved tree generated from timetree
 #Two inputs are required: nexus file and metadata
 
+#load libraries
+library(ape)
+library(ggtree)
+library(tidyverse)
+library(optparse)
 
 option_list <- list(
   # Input file
